@@ -1,5 +1,5 @@
 #![no_std]
-#![main]
+#![no_main]
 
 use core::panic::PanicInfo;
 
