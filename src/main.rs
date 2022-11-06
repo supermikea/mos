@@ -3,23 +3,23 @@
 
 use core::panic::PanicInfo;
 
+mod vga_buffer;
+
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+	println!("{}", info);
 	loop {}
 }
 
-
-static HELLO: &[u8] = b"Hello World";
-
-
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-	let vga_buffer = 0xb8000 as *mut u8;
-
-	for (i, &byte) in HELLO.iter().enumerate() {
-		unsafe {
-			*vga_buffer.offset(i as isize * 2) = byte;
-			*vga_buffer.offset(i as isize * 2 + 1) = 0xb; // 0xb is the color cyan
+	let mut x = 0;
+	loop {
+		println!("{}", x);
+		x = x + 1;
+		if x == 10000 {
+			println!("yay counted to 10.000!!!");
+			break;
 		}
 	}
 	loop {}
