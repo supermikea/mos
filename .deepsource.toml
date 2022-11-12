@@ -6,7 +6,3 @@ enabled = true
 
   [analyzers.meta]
   msrv = "nightly"
-
-[[transformers]]
-name = "rustfmt"
-enabled = true
