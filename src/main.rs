@@ -11,10 +11,16 @@ use mos::println;
 pub extern "C" fn _start() -> ! {
     println!("Hello World!");
 
+	mos::init();
+
     #[cfg(test)]
     test_main();
 
-    loop {}
+	println!("Yay no crashes!");
+    loop {
+		use mos::print;
+		print!("-");
+	}
 }
 
 /// This function is called on panic.
