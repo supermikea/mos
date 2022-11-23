@@ -5,7 +5,7 @@
 #![reexport_test_harness_main = "test_main"]
 
 use core::panic::PanicInfo;
-use mos::println;
+use mos::{println, serial_println};
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
@@ -17,10 +17,18 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
 	println!("Yay no crashes!");
-    loop {
-		use mos::print;
-		print!("-");
+
+	let mut x = 0;
+
+	while true{
+		//println!("{}", x);
+		x+=1;
+		if x == 1000000 {
+			println!("Yay counted to 1.000.000!!!");
+			break;
+		}
 	}
+	mos::hlt_loop()
 }
 
 /// This function is called on panic.
@@ -28,7 +36,7 @@ pub extern "C" fn _start() -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    mos::hlt_loop()
 }
 
 #[cfg(test)]
